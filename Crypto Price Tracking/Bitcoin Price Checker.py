@@ -35,7 +35,7 @@ try:
             elif abs(ETH_percent_change_24h) >= threshold_percent:
                 message = f'Heads up! Ethereum just had a {ETH_percent_change_24h} change!\n\nCurrent prices below.\n\nBitcoin price: ${round(bitcoin_price, 2)}\nEthereum price: ${round(eth_price, 2)}'
             else:
-                message = f"BTC/ETH prices within the threshold.\nCurrent prices below.\n\nBitcoin price: ${round(bitcoin_price, 2)}\nEthereum price: ${round(eth_price, 2)}"
+                message = ""
         else:
             message = 'Bitcoin and/or Ethereum data not found in the response'
     else:
@@ -55,10 +55,11 @@ recipient_number = os.environ.get('recipient_number')
 message_content = "\n" + message
 sender_message = f'This is a test message from {sender_number}\nTo: {recipient_number}\nSubject: SMS Test\n\n{message_content}'
 
-try:
-    with smtplib.SMTP(s_server, port) as server:
-        server.starttls()
-        server.login(email_address, mail_password)
-        server.sendmail(sender_number, recipient_number, message_content)
-except Exception as e:
-    print(f'Error sending mail: {e}')
+if message != ""
+    try:
+        with smtplib.SMTP(s_server, port) as server:
+            server.starttls()
+            server.login(email_address, mail_password)
+            server.sendmail(sender_number, recipient_number, message_content)
+    except Exception as e:
+        print(f'Error sending mail: {e}')
